@@ -1,0 +1,37 @@
+import speech_recognition as sr
+from googletrans import  Translator
+
+
+def listen():
+    r=sr.Recognizer()
+    with sr.Microphone() as source:
+        print("listening.... ")
+        r.pause_thershold=1
+        audio=r.listen(source,0,8)
+
+    try:
+        print("recognizing...")
+        query=r.recognize_google(audio,language="en")
+
+    except:
+        return ""
+    
+    query=str(query).lower()
+    return query
+ 
+def TranslationHinToEng(Text):
+    line=str(Text)
+    translate=Translator()
+    result=translate.translate(line)
+    data=result.text
+    print(f"You: {data}")
+    return data
+
+def MicExecution():
+    query=listen()
+    data=TranslationHinToEng(query)
+    return data
+
+ #It works -SuS
+
+MicExecution()
